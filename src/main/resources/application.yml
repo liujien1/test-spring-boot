@@ -1,0 +1,46 @@
+server:
+  port: 8090
+  servlet:
+    session:
+      timeout: 60
+
+spring:
+  profiles:
+    active: dev
+    include: redis
+logging:
+  level:
+    root: error
+    com:
+      liujie: debug
+      ibatis: debug
+    java:
+      sql: debug
+  file: info.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5p %c -%-4r [%t] %L - %m%n"
+
+---
+spring:
+  profiles: dev
+  application:
+    name: testSpringBoot
+  thymeleaf:
+    cache: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test-springboot?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  main:
+    banner-mode: "off"
+---
+spring:
+  profiles: redis
+  redis:
+    host: 192.168.30.108
+    port: 6379
+    timeout: 60
